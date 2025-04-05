@@ -1,0 +1,15 @@
+2025-04-05 03:03:42,678 - INFO - Starting iteration 0
+2025-04-05 03:03:42,678 - INFO - Running plotting script for iteration 0
+2025-04-05 03:03:42,678 - INFO - Generating hurricane map for iteration 0
+2025-04-05 03:03:46,063 - INFO - Preparing input for model
+2025-04-05 03:03:46,064 - INFO - Calling Gemini model
+2025-04-05 03:03:59,575 - INFO - Completed iteration 0 in 13.5 seconds
+2025-04-05 03:03:59,575 - INFO - Starting iteration 1
+2025-04-05 03:03:59,575 - INFO - Generating hurricane map for iteration 1
+2025-04-05 03:04:02,714 - INFO - Preparing input for model
+2025-04-05 03:04:02,715 - INFO - Calling Gemini model
+2025-04-05 03:04:21,235 - INFO - Completed iteration 1 in 18.5 seconds
+2025-04-05 03:04:21,235 - INFO - Starting iteration 2
+2025-04-05 03:04:21,235 - INFO - Generating hurricane map for iteration 2
+2025-04-05 03:04:24,466 - INFO - Completed final iteration 2
+2025-04-05 03:04:24,467 - INFO - Agent loop completed. Total cost: 0.0087 USD
