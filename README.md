@@ -8,8 +8,10 @@ This project aims to reproduce and optimize the label placement for [Michael Fer
 
 ## Progress So Far
 
-### Phase 2: AI-Driven Label Placement 🚧
-Development of an agentic loop to iteratively improve label placement...
+### Phase 2: AI-Driven Label Placement ✅
+Implemented an agentic loop with Gemini 2.0 Flash Thinking that successfully improved label placement over multiple iterations. The system analyzes overlapping labels in a visualization, generates code changes to fix them, and iteratively improves the layout.
+
+![Phase 2 Progress](output/phase2/phase2_progress.gif)
 
 ### Phase 1: Visual Analysis with Gemini AI ✅
 Tested if Gemini AI could identify label overlaps in a Florida region map with 116 hurricane landfalls. Both Gemini 2.0 Flash Thinking and 2.5 Pro successfully detected and described the overlaps.
@@ -30,9 +32,10 @@ First attempt at plotting all US hurricane landfalls with raw label placement:
    - Verified AI can identify label overlaps
    - Confirmed viability of multimodal visual analysis
 
-3. **Phase 2: AI-Driven Label Placement (In Progress)** 🚧
-   - Developing loop framework for iterative improvements
-   - Testing AI-generated code diffs
+3. **Phase 2: AI-Driven Label Placement (Completed)** ✅
+   - Implemented agent loop framework for iterative improvements
+   - Successfully generated 6 iterations of improving label placement
+   - Demonstrated LLM's ability to analyze visualizations and generate code changes
 
 4. **Phase 3: Scaled Implementation** 📅
    - Apply to full US coastline
