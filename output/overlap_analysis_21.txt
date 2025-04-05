@@ -1,0 +1,11 @@
+Here are the 5 most severe cases of overlapping labels on the hurricane landfall map:
+
+1.  **Overlap in Miami Area:** The label 'ANDREW (1992)' is severely overlapped by multiple other labels, including 'IRENE (1999)'. The text of 'ANDREW (1992)' is almost completely obscured within a dense cluster of labels.
+
+2.  **Overlap: 'FRANCES (2004)' and 'JEANNE (2004)'**: Located near the Miami area, the labels 'FRANCES (2004)' and 'JEANNE (2004)' are significantly overlapping each other, making it difficult to read either label clearly.
+
+3.  **Overlap: 'AL041946 (1946)' and 'AL131944 (1944)'**: In the Tampa Bay region, the labels 'AL041946 (1946)' and 'AL131944 (1944)' are heavily overlapping. The year portion of 'AL041946 (1946)' is particularly obscured by 'AL131944 (1944)'.
+
+4.  **Overlap: 'ABLE (1951)' and 'AL041946 (1946)'**:  Also in the Tampa Bay area, the label 'ABLE (1951)' is overlapping with 'AL041946 (1946)'. The year of 'ABLE (1951)' is partially covered by 'AL041946 (1946)'.
+
+5.  **Overlap: 'AL091880 (1880)' and 'AL041880 (1880)'**: Situated in the Tampa Bay region, the labels 'AL091880 (1880)' and 'AL041880 (1880)', representing two hurricanes in the same year, are overlapping. This makes it harder to distinguish them as separate events on the map.

@@ -8,35 +8,34 @@ This project aims to reproduce and optimize the label placement for [Michael Fer
 
 ## Progress So Far
 
+### Phase 2: AI-Driven Label Placement 🚧
+Development of an agentic loop to iteratively improve label placement...
+
+### Phase 1: Visual Analysis with Gemini AI ✅
+Tested if Gemini AI could identify label overlaps in a Florida region map with 116 hurricane landfalls. Both Gemini 2.0 Flash Thinking and 2.5 Pro successfully detected and described the overlaps.
+
+![Florida Hurricane Landfalls](output/south_florida_landfalls.png)
+
 ### Phase 0: Baseline Map ✅
 First attempt at plotting all US hurricane landfalls with raw label placement:
 ![Baseline US Hurricane Landfalls](output/baseline_us_cat1_5.png)
 
-### Phase 1: South Florida Focus 🚧
-Testing our label optimization approach on the dense South Florida region:
-![South Florida Landfalls](output/south_florida_landfalls.png)
+## Project Plan
 
-We're using an agentic loop with Gemini 2.0 Flash Thinking to iteratively improve label placement and reduce overlaps.
+1. **Phase 0: Baseline Map (Completed)** ✅
+   - Parsed HURDAT2 data for hurricane landfalls
+   - Created initial visualization with raw labels
 
-## Project Progress
+2. **Phase 1: Visual Analysis with AI (Completed)** ✅
+   - Verified AI can identify label overlaps
+   - Confirmed viability of multimodal visual analysis
 
-### Current Phase: Label Optimization with AI
+3. **Phase 2: AI-Driven Label Placement (In Progress)** 🚧
+   - Developing loop framework for iterative improvements
+   - Testing AI-generated code diffs
 
-We're using an agentic loop approach with Gemini 2.0 Flash Thinking to iteratively improve label placement. The process involves:
-
-1. **Phase 0: Baseline Map (Completed)**
-   - Parsed HURDAT2 data for all US hurricane landfalls
-   - Created initial visualization with raw label placement
-   - Established baseline for improvement measurement
-
-2. **Phase 1: South Florida Focus (In Progress)**
-   - Selected South Florida region as initial test area
-   - Using AI to analyze label overlaps
-   - Developing strategies for optimal label placement
-
-3. **Future Phases**
-   - Expand to full US coastline
-   - Implement advanced label collision avoidance
+4. **Phase 3: Scaled Implementation** 📅
+   - Apply to full US coastline
    - Fine-tune visual aesthetics
 
 ## Acknowledgments
