@@ -1,0 +1,54 @@
+# Landfall Project Rules and Information
+
+## Project Overview
+- Project: Hurricane Landfall Map Label Optimization
+- Goal: Improve label layout using agentic loop with Gemini 2.0 Flash Thinking
+- Budget: ~$100 USD for API calls
+
+## Environment Setup
+- Python environment manager: uv
+- Virtual environment: .venv
+- Key dependencies:
+  - pandas
+  - matplotlib
+  - cartopy
+  - google-generativeai
+
+## Code Style Rules
+- Use type hints for function parameters and return values
+- Follow PEP 8 style guidelines
+- Include docstrings for functions and classes
+- Use meaningful variable names that reflect their purpose
+
+## File Organization
+- Keep data files in a `data/` directory
+- Store generated images in an `output/` directory
+- Maintain separate directories for different phases
+- Use clear, descriptive filenames
+
+## Git Rules
+- Always use --no-pager flag with git commands
+- Commit messages should be clear and descriptive
+- Include relevant phase number in commit messages when applicable
+
+## API Usage Guidelines
+- Monitor API usage and costs carefully
+- Use Gemini 2.0 Flash Thinking (gemini-2.0-flash-thinking-exp-01-21) for all tasks
+- Log all API calls and responses for analysis
+
+## Testing and Validation
+- Validate all generated code before execution
+- Keep track of baseline performance metrics
+- Document any manual interventions or adjustments
+- Maintain logs of agent behavior and improvements
+
+## Documentation Requirements
+- Document all significant code changes
+- Keep track of prompt iterations and their effectiveness
+- Maintain a log of visual improvements and metrics
+- Document any API usage patterns or limitations discovered
+
+## Budget Management
+- Track API usage costs in each phase
+- Prioritize cost-effective approaches
+- Document any budget-related decisions or trade-offs 
