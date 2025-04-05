@@ -1,68 +1,44 @@
 # Hurricane Landfall Map Label Optimization
 
-## Phase 0: Foundation & Baseline Setup
+Follow my progress in this project [here](https://x.com/patelnav/status/1908371085495533707)!
 
-This project aims to improve label layout on hurricane landfall maps using an agentic loop with Gemini 2.0 Flash Thinking.
+This project aims to reproduce and optimize the label placement for [Michael Ferragamo's visualization](https://x.com/FerragamoWx/status/1908213794314019049) of 1,167 Atlantic hurricane landfalls (1851-2024):
 
-### Environment Setup
+![Original Hurricane Landfall Visualization by Michael Ferragamo](tweet/FerragamoWx.png)
 
-1. Create a Python virtual environment using uv:
-   ```bash
-   uv venv .venv
-   source .venv/bin/activate
-   ```
+## Progress So Far
 
-2. Install dependencies:
-   ```bash
-   uv pip install -r requirements.txt
-   ```
+### Phase 0: Baseline Map ✅
+First attempt at plotting all US hurricane landfalls with raw label placement:
+![Baseline US Hurricane Landfalls](output/baseline_us_cat1_5.png)
 
-### Data Preparation
+### Phase 1: South Florida Focus 🚧
+Testing our label optimization approach on the dense South Florida region:
+![South Florida Landfalls](output/south_florida_landfalls.png)
 
-1. Download the HURDAT2 data file:
-   - Visit: https://www.nhc.noaa.gov/data/hurdat/hurdat2-1851-2023-051124.txt
-   - Save the file to the `data/` directory as `hurdat2-1851-2023-051124.txt`
+We're using an agentic loop with Gemini 2.0 Flash Thinking to iteratively improve label placement and reduce overlaps.
 
-2. Parse the HURDAT2 data:
-   ```bash
-   python src/parse_hurdat.py
-   ```
-   This will create `data/us_hurricane_landfalls_cat1_5.csv` with filtered landfall data.
+## Project Progress
 
-### Generate Baseline Map
+### Current Phase: Label Optimization with AI
 
-Run the baseline plotting script to create a map with raw labels:
-```bash
-python src/baseline_plot.py
-```
-This will generate `output/baseline_us_cat1_5.png` showing all US hurricane landfalls with labels placed directly at the landfall points.
+We're using an agentic loop approach with Gemini 2.0 Flash Thinking to iteratively improve label placement. The process involves:
 
-### API Connectivity Check
+1. **Phase 0: Baseline Map (Completed)**
+   - Parsed HURDAT2 data for all US hurricane landfalls
+   - Created initial visualization with raw label placement
+   - Established baseline for improvement measurement
 
-1. Set your Gemini API key:
-   ```bash
-   export GEMINI_API_KEY='your-api-key-here'
-   ```
+2. **Phase 1: South Florida Focus (In Progress)**
+   - Selected South Florida region as initial test area
+   - Using AI to analyze label overlaps
+   - Developing strategies for optimal label placement
 
-2. Test the API connection:
-   ```bash
-   python src/check_api.py
-   ```
+3. **Future Phases**
+   - Expand to full US coastline
+   - Implement advanced label collision avoidance
+   - Fine-tune visual aesthetics
 
-## Project Structure
+## Acknowledgments
 
-```
-landfall/
-├── data/                      # Data files
-│   ├── hurdat2-1851-2023-051124.txt  # Raw HURDAT2 data
-│   └── us_hurricane_landfalls_cat1_5.csv  # Processed landfall data
-├── output/                    # Generated images
-│   └── baseline_us_cat1_5.png  # Baseline map with raw labels
-├── src/                       # Source code
-│   ├── parse_hurdat.py        # HURDAT2 data parser
-│   ├── baseline_plot.py       # Baseline map generator
-│   └── check_api.py           # API connectivity check
-├── .venv/                     # Python virtual environment
-├── requirements.txt           # Project dependencies
-└── README.md                  # This file
-``` 
+Special thanks to Michael Ferragamo ([@FerragamoWx](https://x.com/FerragamoWx)) for creating the original visualization that inspired this project. 
