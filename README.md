@@ -13,11 +13,17 @@ Applied the incremental approach to the full US East Coast map with significant 
 
 1. **Initial Approach**: Tested sophisticated regional strategies and cluster-based positioning.
 2. **Simplified Incremental Approach**: Switched to adding clusters incrementally with adjustText for optimization.
-3. **LLM-Guided Point Adjustments**: Had the LLM identify and fix the worst overlapping labels one by one.
+3. **LLM-Guided Point Adjustments**: Implemented a diff-based approach where the LLM identifies and fixes overlapping labels one by one, with each change being applied as a patch to the code.
 
-Current results show improvement but still struggle with dense hurricane clusters:
+Current results show the LLM is effectively identifying and repositioning problematic labels, but we need a more systematic approach to achieve Michael's elegant layout:
 
-<img src="output/phase3/florida_iterations.gif" alt="Phase 3 Iterations" width="500">
+<img src="output/phase3/florida_iterations-2.gif" alt="Phase 3 Iterations with Diff-Based Approach" width="500">
+
+Key insights from the implementation:
+- The LLM successfully identifies and fixes individual label overlaps
+- The diff-based approach allows for precise, targeted adjustments
+- We need to improve our initial clustering and leader line strategy
+- Next focus: Develop better geographic clustering and systematic label placement rules
 
 ### Phase 2: AI-Driven Label Placement ✅
 Implemented an agentic loop with Gemini 2.0 Flash Thinking that successfully improved label placement over multiple iterations. The system analyzes overlapping labels in a visualization, generates code changes to fix them, and iteratively improves the layout.
@@ -50,19 +56,30 @@ First attempt at plotting all US hurricane landfalls with raw label placement:
 
 4. **Phase 3: Full-Scale Implementation (In Progress)** 🚧
    - Applied to full US coastline with significant hurricanes
-   - Tested different strategies for label placement
-   - Faced challenges with scaling the point-by-point adjustment approach
-   - Next steps: Refine geographic clustering and develop a more systematic approach to label placement
+   - Implemented diff-based approach for precise label adjustments
+   - Successfully generated 10+ iterations of improving label placement
+   - Next steps: 
+     - Develop more sophisticated geographic clustering
+     - Implement systematic leader line placement rules
+     - Create region-specific label placement strategies
+     - Balance automated clustering with LLM-guided refinements
 
 ## Lessons Learned & Next Steps
 
 The project has revealed several challenges in scaling LLM-guided data visualization:
 
 1. **Geographic Context Matters**: Breaking down the problem geographically is essential
-2. **Incremental Improvement Strategy**: While the point-by-point adjustment works for small datasets, it struggles with larger ones
+2. **Incremental Improvement Strategy**: The diff-based approach allows for precise adjustments but needs better initial placement
 3. **Balance of Automation and Guidance**: Finding the right level of structure to provide the LLM remains challenging
+4. **Systematic Clustering**: Need to develop better rules for initial label placement and leader line generation
+5. **Region-Specific Strategies**: Different coastal regions may need different placement strategies
 
-Future work will focus on developing more specialized geographic regions and providing better initial placement heuristics before LLM refinement.
+Future work will focus on:
+1. Developing more sophisticated geographic clustering algorithms
+2. Creating systematic rules for leader line placement
+3. Implementing region-specific label placement strategies
+4. Balancing automated clustering with LLM-guided refinements
+5. Improving the visual hierarchy of labels and leader lines
 
 ## Acknowledgments
 

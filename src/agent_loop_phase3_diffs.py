@@ -138,18 +138,63 @@ def apply_diff(current_code: str, diff_text: str, logger) -> str:
         return current_code
     
     try:
-        # Ensure diff_text is bytes if the library requires it
-        patch_set = patch.fromstring(diff_text.encode('utf-8'))
+        # Log the diff content for debugging
+        logger.info(f"Attempting to apply diff with {len(diff_text.splitlines())} lines")
+        logger.info(f"Diff content:\n{diff_text}")
         
-        # Apply patch to current code
-        patched_bytes = patch_set.apply(current_code.encode('utf-8'))
+        # Create temporary files for the patching process
+        temp_dir = Path("temp")
+        temp_dir.mkdir(exist_ok=True)
         
-        if patched_bytes:
-            logger.info("Successfully applied diff.")
-            return patched_bytes.decode('utf-8')  # Return the new code
-        else:
-            logger.warning("Failed to apply diff (patch library returned False).")
-            return current_code  # Keep the original code
+        # Write current code to a temporary file
+        original_file = temp_dir / "original.py"
+        with open(original_file, 'w') as f:
+            f.write(current_code)
+        logger.info(f"Wrote current code to {original_file}")
+        
+        # Write diff to a temporary file, modifying paths to match our temp files
+        diff_file = temp_dir / "changes.diff"
+        # Don't modify the file paths in the diff headers
+        with open(diff_file, 'w') as f:
+            f.write(diff_text)
+        logger.info(f"Wrote diff to {diff_file}")
+        
+        # Apply the patch using the patch command with more verbose output
+        logger.info(f"Running patch command: patch -p1 -i {diff_file} {original_file}")
+        result = subprocess.run(
+            ["patch", "-p1", "-i", str(diff_file), str(original_file)],
+            capture_output=True,
+            text=True
+        )
+        
+        # Log detailed results
+        logger.info(f"Patch command return code: {result.returncode}")
+        logger.info(f"Patch command stdout: {result.stdout}")
+        
+        if result.returncode != 0:
+            logger.warning(f"Failed to apply diff using patch command: {result.stderr}")
+            
+            # Try alternative patch method with different options
+            logger.info("Trying alternative patch method with --ignore-whitespace")
+            alt_result = subprocess.run(
+                ["patch", "--ignore-whitespace", "-p0", "-i", str(diff_file), str(original_file)],
+                capture_output=True,
+                text=True
+            )
+            
+            if alt_result.returncode != 0:
+                logger.warning(f"Alternative patch method also failed: {alt_result.stderr}")
+                return current_code
+            else:
+                logger.info(f"Alternative patch method succeeded: {alt_result.stdout}")
+        
+        # Read the patched file
+        with open(original_file, 'r') as f:
+            new_code = f.read()
+        
+        logger.info("Successfully applied diff using patch command.")
+        return new_code
+        
     except Exception as e:
         logger.error(f"Error applying diff: {e}")
         return current_code  # Keep the original code in case of errors
@@ -225,8 +270,26 @@ def create_prompt(image_path, current_image_path, code_path, iteration, previous
 **Task:**
 1.  Analyze the `current_image`, focusing on the layout generated primarily by `adjustText`. Identify the ONE WORST remaining overlap or label placement issue, especially concerning the newly added cluster or interactions between clusters.
 2.  Generate a code diff in standard `diff -u` format to modify the `current_code`.
-3.  The **primary goal** of the diff should be to add a *new* specific `ax.text(x, y, "Label (YEAR)", ...)` call *after* the main `adjust_text(...)` call. This new call manually sets the precise coordinates (x, y) for the single problematic label you identified, effectively overriding the position `adjustText` chose for it. Choose coordinates that resolve the issue identified in step 1.
-4.  Do NOT modify the main `adjust_text(...)` call or its parameters in this diff unless absolutely necessary and you explain why in a comment within the diff context. Do not modify data loading or loop logic.
+3.  The **primary goal** of the diff should be to add a *new* specific `text_obj.set_position(x, y)` call *after* the main `adjust_text(...)` call, where text_obj is obtained by iterating through the all_texts list and finding the matching label text. Follow the pattern already used in the code:
+
+```python
+# Find and adjust a specific label's position
+for text_obj in all_texts:
+    if text_obj.get_text() == "HURRICANE_NAME (YEAR)":
+        text_obj.set_position((longitude, latitude))
+        text_obj.set_ha('center')  # Optional: adjust horizontal alignment 
+        text_obj.set_va('bottom')  # Optional: adjust vertical alignment
+        break  # Exit the loop after finding the label
+```
+
+4. **IMPORTANT RESTRICTIONS:**
+   - DO NOT try to access or modify properties that don't exist on Matplotlib Text objects
+   - DO NOT use methods like `get_arrowprops()` which do not exist
+   - DO NOT try to access the adjustText internals
+   - ONLY use standard Matplotlib Text object properties: set_position(), set_ha(), set_va(), set_bbox(), set_zorder()
+   - DO NOT modify the main `adjust_text(...)` call or its parameters
+   - DO NOT modify data loading or loop logic
+
 5.  Output **only the diff block**, correctly formatted and enclosed in markdown triple backticks (```diff ... ```).
 
 **Self-Correction Hint:** Review the `previous_image` and `previous_diff`. If the last change didn't improve the specific issue it targeted, try fixing a *different* problematic label in this iteration.

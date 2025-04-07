@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Florida Hurricane Landfall Map Generator - Simplified Incremental Approach
+Florida Hurricane Landfall Map Generator - adjustText Focused Approach
 
 This script creates a map of Florida hurricane landfalls, adding one cluster at a time
-and using adjustText for label placement optimization.
+and using adjustText as the primary layout engine for label placement optimization.
 """
 
 import pandas as pd
@@ -96,7 +96,8 @@ def create_florida_map(data_path: str, output_path: str, iteration: int) -> None
     ax = plt.axes(projection=ccrs.PlateCarree())
     
     # Set map extent to match baseline (showing full East Coast context)
-    ax.set_extent([-100, -60, 20, 50], crs=ccrs.PlateCarree())
+    # Modify to extend further south to ensure Florida and Gulf are fully visible
+    ax.set_extent([-100, -60, 15, 50], crs=ccrs.PlateCarree())
     
     # Add map features
     ax.add_feature(cfeature.COASTLINE, linewidth=0.5)
@@ -140,8 +141,7 @@ def create_florida_map(data_path: str, output_path: str, iteration: int) -> None
                 zorder=5
             )
             
-            # Add text label near the point with a small offset
-            # Let adjustText handle the positioning
+            # Add text label with a small offset from the point
             small_offset_x, small_offset_y = 0.1, 0.1
             text = ax.text(
                 point_x + small_offset_x,
@@ -184,6 +184,7 @@ def create_florida_map(data_path: str, output_path: str, iteration: int) -> None
     )
     
     # Use adjustText to adjust the text positions and avoid overlaps
+    # Configure with parameters that give adjustText more freedom to place labels
     adjust_text(
         all_texts,
         arrowprops=dict(arrowstyle='->', color='gray', lw=0.5),
@@ -192,8 +193,6 @@ def create_florida_map(data_path: str, output_path: str, iteration: int) -> None
         force_points=(0.5, 0.5),
         force_text=(0.5, 0.5), 
         autoalign=True,  # Allow adjustText to align labels
-        ha='center',
-        va='center'
     )
     
     # Save the plot
