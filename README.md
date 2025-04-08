@@ -9,21 +9,35 @@ This project aims to reproduce and optimize the label placement for [Michael Fer
 ## Progress So Far
 
 ### Phase 3: Full-Scale Implementation 🚧
-Applied the incremental approach to the full US East Coast map with significant hurricanes. This phase faced challenges with scaling the label placement to handle the increased complexity:
 
-1. **Initial Approach**: Tested sophisticated regional strategies and cluster-based positioning.
-2. **Simplified Incremental Approach**: Switched to adding clusters incrementally with adjustText for optimization.
-3. **LLM-Guided Point Adjustments**: Implemented a diff-based approach where the LLM identifies and fixes overlapping labels one by one, with each change being applied as a patch to the code.
+#### Algorithmic Clustering Approach (Current)
 
-Current results show the LLM is effectively identifying and repositioning problematic labels, but we need a more systematic approach to achieve Michael's elegant layout:
+We've implemented a systematic algorithmic approach to address the label placement challenges:
+
+1. **DBSCAN Clustering**: Applied DBSCAN to group hurricane landfalls with a custom coastline-aware distance metric that gives more weight to longitude differences.
+2. **Collision Detection**: Implemented polygon-based collision detection for label boxes that accounts for their actual dimensions.
+
+The algorithmic approach gets closer to where we want to be, but lots of work to make this look any good:
+
+<img src="output/phase3_algo/florida_algo_animation.gif" alt="Phase 3 Algorithmic Approach Animation" width="500">
+
+Next steps for this approach include:
+- Refining the collision detection to handle additional edge cases
+- Implementing more sophisticated rules for initial label placement based on geographic regions
+- Exploring additional visual hierarchy improvements for dense hurricane regions
+- Combining the algorithmic approach with LLM-guided fine-tuning for optimal results
+
+#### Earlier Approach: LLM-Guided Point Adjustments
+
+Previously, we explored an LLM-guided approach using diff-based adjustments:
+
+1. **Initial Strategies**: Tested regional strategies and cluster-based positioning.
+2. **Incremental Approach**: Added clusters incrementally with adjustText for optimization.
+3. **Diff-Based Corrections**: Implemented a system where the LLM identifies and fixes overlapping labels one by one.
 
 <img src="output/phase3/florida_iterations-2.gif" alt="Phase 3 Iterations with Diff-Based Approach" width="500">
 
-Key insights from the implementation:
-- The LLM successfully identifies and fixes individual label overlaps
-- The diff-based approach allows for precise, targeted adjustments
-- We need to improve our initial clustering and leader line strategy
-- Next focus: Develop better geographic clustering and systematic label placement rules
+While this approach showed promise, it highlighted the need for more systematic rules for clustering and label placement, which led to our current algorithmic solution.
 
 ### Phase 2: AI-Driven Label Placement ✅
 Implemented an agentic loop with Gemini 2.0 Flash Thinking that successfully improved label placement over multiple iterations. The system analyzes overlapping labels in a visualization, generates code changes to fix them, and iteratively improves the layout.
